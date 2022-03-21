@@ -33,8 +33,8 @@ Vagrant.configure("2") do |config|
  # Configure the Database
   config.vm.define "db" do |db|
     db.vm.provider :virtualbox do |vb|
-      vb_db.name = "m300_database"
-     vb_db.memory = 1024
+      vb.name = "m300_database"
+     vb.memory = 1024
   end
 
  # network configuration
