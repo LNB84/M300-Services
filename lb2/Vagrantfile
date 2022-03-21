@@ -9,11 +9,11 @@ ADDITIONALFILES = Dir.pwd + "/AdditionalFiles"
 
 Vagrant.configure("2") do |config|
 
-  web.vm.synced_folder ADDITIONALFILES, "/var/www"
-  web.vm.box = "ubuntu/bionic64"
+  config.vm.synced_folder ADDITIONALFILES, "/var/www"
+  config.vm.box = "ubuntu/bionic64"
 
  # Configure the Webserver
-  config.vm.define "WebServer" do |web|
+  config.vm.define "web" do |web|
     web.vm.provider :virtualbox do |vb|
      vb.name = "m300_webserver"
      vb.memory = 1024
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
 
  # network configuration
   web.vm.network "private_network", ip: "192.168.0.20"
-    virtualbox_intnet: true
+ #   virtualbox_intnet: true
   web.vm.network "forwarded_port", guest: 80, host: 18706
   
  # install webserver
@@ -37,15 +37,17 @@ Vagrant.configure("2") do |config|
      vb_db.memory = 1024
   end
 
+ # network configuration
   db.vm.network "private_network", ip: "192.168.0.30"
-    virtualbox_intnet: true
-  web.vm.network "forwarded_port", guest: 3306, host: 33306
+ #   virtualbox_intnet: true
+  db.vm.network "forwarded_port", guest: 3306, host: 33306
 
  # install database
  db.vm.provision "shell", path: "db_shell.sh"
  
 
   end
+
 
 end
 
