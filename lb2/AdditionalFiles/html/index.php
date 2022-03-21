@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css.css">
-<title>Registration</title>
+<title>M300 - Registration</title>
 </head>
 <body>
 

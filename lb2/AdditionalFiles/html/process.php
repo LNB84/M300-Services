@@ -4,6 +4,35 @@ $username = 'root';
 $password = 'rootpass';
 $dsn = 'mysql:host=192.168.0.30;dbname=formresponses';
 
+//Return true if input is not null and not an empty string
+function nonempty($input)
+{
+	$nonempty=FALSE;
+	if($input!=null && $input!='')
+		$nonempty=TRUE;
+	return $nonempty;
+}
+
+//Return true if user info is valid (not empty, email syntax okay)
+function validSubmission($first,$last)
+{
+	$result=FALSE;
+	if(nonempty($first) && nonempty($last))
+		$result=TRUE;
+	return $result;
+}
+
+
+//Insert entered form info into the database
+function insertInfo($db,$first,$last)
+{
+	$stmt = $db->prepare("INSERT INTO response(firstname, lastname) VALUES (:first, :last)");
+	$stmt->bindParam(':first', $first);
+	$stmt->bindParam(':last', $last);
+	
+	return $stmt->execute();
+}
+
 try{
 	$db = new PDO($dsn, $username, $password);
 	$result=FALSE;
@@ -21,35 +50,5 @@ try{
 }
 
 header('Location: index.php?success='.$result);
-
-
-
-//Return true if user info is valid (not empty, email syntax okay)
-function validSubmission($first,$last)
-{
-	$result=FALSE;
-	if(nonempty($first) && nonempty($last))
-		$result=TRUE;
-	return $result;
-}
-
-//Return true if input is not null and not an empty string
-function nonempty($input)
-{
-	$nonempty=FALSE;
-	if($input!=null && $input!='')
-		$nonempty=TRUE;
-	return $nonempty;
-}
-
-//Insert entered form info into the database
-function insertInfo($db,$first,$last,$email)
-{
-	$stmt = $db->prepare("INSERT INTO response(firstname, lastname, email, submitdate) VALUES (:first, :last)");
-	$stmt->bindParam(':first', $first);
-	$stmt->bindParam(':last', $last);
-	
-	return $stmt->execute();
-}
 
 ?>
