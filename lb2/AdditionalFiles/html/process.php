@@ -5,10 +5,10 @@
 </head>
 <body>
     <table>
-			<tr>
-				<th>First Name</th>
-				<th>Last Name</th>
-			</tr>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+		</tr>
             <?php
             //Check if something is in the Database
             if(isset($_POST['submit']))
@@ -30,15 +30,15 @@
             // It will give a output, if something is written in the Database                
                 if($rs)
                 {
-					$selectsql = "SELECT firstname, lastname from response";
-					$resultat = $con-> query($selectsql);
+			$selectsql = "SELECT firstname, lastname from response";
+			$resultat = $con-> query($selectsql);
 
-					if ($resultat-> num_rows > 0) {
-						while ($row = $resultat-> fetch_assoc()) {
-							echo "</td><td>". $row["firstname"] ."</td><td>". $row["lastname"] ."</td><td>";
-						}
-						echo "</table>";
-					}
+			if ($resultat-> num_rows > 0) {
+				while ($row = $resultat-> fetch_assoc()) {
+					echo "</td><td>". $row["firstname"] ."</td><td>". $row["lastname"] ."</td><td>";
+			}
+				echo "</table>";
+			}
                 }
                 else
                 {
