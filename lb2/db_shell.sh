@@ -15,10 +15,9 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'rootpass' WITH GR
 sudo service mysql restart
 
 # Create database for form responses (WebExampleBox)
-mysql -uroot -p'rootpass' -e "DROP DATABASE IF EXISTS formresponses; 
+mysql -uroot -prootpass -e "DROP DATABASE IF EXISTS formresponses; 
 	CREATE DATABASE formresponses; 
 	USE formresponses; 
 	CREATE TABLE response (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-		firstname VARCHAR(20), lastname VARCHAR(20), 
-		email VARCHAR(50), submitdate DATETIME);"
+		firstname VARCHAR(20), lastname VARCHAR(20));"
 sudo service mysql restart
