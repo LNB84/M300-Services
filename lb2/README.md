@@ -17,6 +17,7 @@
     - [2. In MySQL einloggen](#2.-in-mysql-einloggen)
     - [3. Datenbank verwenden und Tabelle anzeigen](#3.-datenbank-verwenden-und-tabelle-anzeigen)
     - [Exit](#exit)
+- [Sicherheit](#sicherheit)
 - [Quellen](#quellen)
 
 ---
