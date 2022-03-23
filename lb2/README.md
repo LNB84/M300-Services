@@ -6,8 +6,6 @@
     - [Voraussetzungen](#voraussetzungen)
 - [Aufbau der Umgebung](#aufbau-der-umgebung)
 	- [Identifikationen](#identifikationen)
-	   - [Webserver](#webserver)
-       - [Datenbankserver](#datenbankserver)
 - [Vagrantumgebung Starten/Herunterfahren](#vagrantumgebung-starten-/-herunterfahren)
     - [Hochfahren](#hochfahren)
     - [Herunterfahren](#herunterfahren)
