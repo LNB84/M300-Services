@@ -1,4 +1,4 @@
-# M300-Services | Webserver mit Registrierung und Mysql
+# M300 | Webserver mit Registrierung und Mysql
 
 ## Inhaltsverzeichnis
 
