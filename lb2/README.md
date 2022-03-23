@@ -65,19 +65,57 @@ Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webs
 ## Code
 
 ### Vagrantfile
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
 ```
+
+# Pfad für die zusätzlichen Files
+ADDITIONALFILES = Dir.pwd + "/AdditionalFiles"
+
+# Konfiguration
+Vagrant.configure("2") do |config|
+
+# Ordner teilen
+  config.vm.synced_folder ADDITIONALFILES, "/var/www"
+  config.vm.box = "ubuntu/bionic64"
+
+# Webserver Konfiguration
+  config.vm.define "web" do |web|
+    web.vm.provider :virtualbox do |vb|
+     vb.name = "m300_webserver"
+     vb.memory = 1024
+    end
+
+# Netzwerk-Konfiguration für den Webserver
+  web.vm.network "private_network", ip: "192.168.0.20"
+#   virtualbox_intnet: true
+  web.vm.network "forwarded_port", guest: 80, host: 18706
+  
+# File zum Apache installieren
+  web.vm.provision "shell", path: "web_shell.sh"
+
+
+  end
+
+# Datenbankserver Konfiguration
+  config.vm.define "db" do |db|
+    db.vm.provider :virtualbox do |vb|
+      vb.name = "m300_database"
+     vb.memory = 2048
+  end
+
+# Netzwerk-Konfiguration für den Datenbankserver
+  db.vm.network "private_network", ip: "192.168.0.30"
+#   virtualbox_intnet: true
+  db.vm.network "forwarded_port", guest: 80, host: 3306
+
+# File mit der Datenbank-Installation
+ db.vm.provision "shell", path: "db_shell.sh"
  
-```python
-s = "Python syntax highlighting"
-print s
-```
- 
-```
-No language indicated, so no syntax highlighting. 
-But let's throw in a <b>tag</b>.
+
+  end
+
+
+end
+
 ```
 
 ---
