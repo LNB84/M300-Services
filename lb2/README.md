@@ -8,8 +8,8 @@
 	- [Identifikationen](#identifikationen)
 - [Code](#code)
 	- [Vagrantfile](#vagrantfile)
-	- [web_shell.sh](#web_shell.sh)
-	- [db_shell.sh](#db_shell.sh)
+	- [web_shell.sh](#web-_-shell-.-sh)
+	- [db_shell.sh](#db-_-shell-.-sh)
 - [Vagrantumgebung Starten/Herunterfahren](#vagrantumgebung-starten-/-herunterfahren)
     - [Hochfahren](#hochfahren)
     - [Herunterfahren](#herunterfahren)
@@ -121,7 +121,20 @@ end
 
 ```
 ### web_shell.sh
+```
+# Pakete herunterlae^den
+apt-get update
 
+# Apache installieren
+apt install -y apache2
+
+# PHP installieren
+sudo apt-get install -y php-fpm php-mysql
+sudo apt-get install -y php libapache2-mod-php php-mysql
+
+# Dienst neu Starten
+sudo service apache2 restart
+```
 ### db_shell.sh
 ```
 # Packete herunterladen
