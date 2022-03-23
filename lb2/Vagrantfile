@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
 # Netzwerk-Konfiguration für den Datenbankserver
   db.vm.network "private_network", ip: "192.168.0.30"
 #   virtualbox_intnet: true
-  db.vm.network "forwarded_port", guest: 3306, host: 33306
+  db.vm.network "forwarded_port", guest: 80, host: 3306
 
 # File mit der Datenbank-Installation
  db.vm.provision "shell", path: "db_shell.sh"
