@@ -124,7 +124,7 @@ end
 ```
 ### web shell
 ```
-# Pakete herunterlae^den
+# Pakete herunterladen
 apt-get update
 
 # Apache installieren
@@ -139,7 +139,7 @@ sudo service apache2 restart
 ```
 ### db shell
 ```
-# Packete herunterladen
+# Pakete herunterladen
 sudo apt-get update
 # mysql Benutzername: root
 # mysql Passwort: rootpass
