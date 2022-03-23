@@ -217,12 +217,12 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 - Tabelle anzeigen mit `select*from response;`
 
 ### Verlassen der VM
-- Um die VM zu verlassen und die SHH-Verbindung zu trennen, muss man den Befehl `exit` eintippen.
+- Um die VM zu verlassen und die SHH-Verbindung zu trennen, muss man den Befehl `exit` eintippen
 ---
 
 ## Sicherheit
 - Der Datenbankserver bzw. MySQL ist mit einem Passwort geschützt
-- Der ist mit dem ungeschützten Protokoll "HTTP" erreichbar.
+- Der ist mit dem ungeschützten Protokoll "HTTP" erreichbar
 
 ---
 ### Quellen
