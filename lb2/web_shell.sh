@@ -1,4 +1,4 @@
-# Pakete herunterlae^den
+# Pakete herunterladen
 apt-get update
 
 # Apache installieren
