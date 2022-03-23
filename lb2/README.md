@@ -229,3 +229,7 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 [MySQL Installation](https://linuxize.com/post/how-to-install-mysql-on-ubuntu-18-04/)
 
 [Webserver mit MySQL](https://medium.com/analytics-vidhya/web-development-basics-how-to-connect-html-form-to-mysql-using-php-on-apache-web-server-part-1-7edce564169e)
+
+[Website Formular](https://www.youtube.com/watch?v=gpM9hUKXLgk&ab_channel=ProgrammingKnowledge)
+
+[PHP Syntax](https://www.w3schools.com/php/php_syntax.asp)
