@@ -16,7 +16,7 @@
     - [1. Via SSH auf Datenbankserver verbinden](#1.-via-ssh-auf-datenbankservre-verbinden)
     - [2. In MySQL einloggen](#2.-in-mysql-einloggen)
     - [3. Datenbank verwenden und Tabelle anzeigen](#3.-datenbank-verwenden-und-tabelle-anzeigen)
-- [Exit](#exit)
+    - [Exit](#exit)
 - [Quellen](#quellen)
 
 ---
