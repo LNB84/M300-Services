@@ -195,7 +195,7 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 
 ## Testing Website
 ### User Registrieren
-- Im Webbrowser die IP mit dem Port `192.168.0.20:8080` eintragen
+- Im Webbrowser die IP mit dem Port `192.168.0.20:80` eintragen
 - Name nach Wahl eintragen
 
 ## Testing Datenbank
