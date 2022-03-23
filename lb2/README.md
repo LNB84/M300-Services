@@ -110,6 +110,11 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 - Um die VM zu verlassen und die SHH-Verbindung zu trennen, muss man den Befehl `exit` eintippen.
 ---
 
+## Sicherheit
+- Der Datenbankserver bzw. MySQL ist mit einem Passwort geschützt
+- Der ist mit dem ungeschützten Protokoll "http" erreichbar.
+
+---
 ### Quellen
 [MySQL Installation](https://linuxize.com/post/how-to-install-mysql-on-ubuntu-18-04/)
 
