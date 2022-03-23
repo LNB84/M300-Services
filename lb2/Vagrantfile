@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 # Netzwerk-Konfiguration für den Webserver
   web.vm.network "private_network", ip: "192.168.0.20"
 #   virtualbox_intnet: true
-  web.vm.network "forwarded_port", guest: 80, host: 18706
+  web.vm.network "forwarded_port", guest: 80, host: 8080
   
 # File zum Apache installieren
   web.vm.provision "shell", path: "web_shell.sh"
