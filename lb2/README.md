@@ -8,8 +8,8 @@
 	- [Identifikationen](#identifikationen)
 - [Code](#code)
 	- [Vagrantfile](#vagrantfile)
-	- [websh](#websh)
-	- [dbsh](#dbsh)
+	- [web shell](#web-shell)
+	- [db shell](#db-shell)
 - [Vagrantumgebung Starten/Herunterfahren](#vagrantumgebung-starten-/-herunterfahren)
     - [Hochfahren](#hochfahren)
     - [Herunterfahren](#herunterfahren)
@@ -120,7 +120,7 @@ Vagrant.configure("2") do |config|
 end
 
 ```
-### websh
+### web shell
 ```
 # Pakete herunterlae^den
 apt-get update
@@ -135,7 +135,7 @@ sudo apt-get install -y php libapache2-mod-php php-mysql
 # Dienst neu Starten
 sudo service apache2 restart
 ```
-### dbsh
+### db shell
 ```
 # Packete herunterladen
 sudo apt-get update
