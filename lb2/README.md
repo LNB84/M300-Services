@@ -16,7 +16,7 @@
     -  [VMs löschen](#vms-löschen)
 - [Via SSH auf die VMs zugreifen](#via-ssh-auf-die-vms-zugreifen)
 - [Testing Website](#testing-website)
-	- [1. User Registrieren](#1.-user-registrieren) 
+	- [User Registrieren](#user-registrieren) 
 - [Testing Datenbank](#testing-datenbank)
     - [Passwort](#Passwort)
     - [1. Via SSH auf Datenbankserver verbinden](#1.-via-ssh-auf-datenbankservre-verbinden)
@@ -194,7 +194,7 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 ---
 
 ## Testing Website
-### 1. User Registrieren
+### User Registrieren
 - Im Webbrowser die IP mit dem Port `192.168.0.20:8080` eintragen
 - Name nach Wahl eintragen
 
