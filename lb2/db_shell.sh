@@ -1,20 +1,22 @@
-
+# Packete herunterladen
 sudo apt-get update
-# mysql username: root
-# mysql password: rootpass
+# mysql Benutzername: root
+# mysql Passwort: rootpass
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password rootpass'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password rootpass'
 
+# mysql installieren
 sudo apt-get install -y mysql-server
 
 sudo sed -i -e"s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
-# Allow root access from any host
+# Root-Zugriff von jedem Host
 echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'rootpass' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql -u root --password=rootpass
 
+#Service neu starten
 sudo service mysql restart
 
-# Create database for form responses (WebExampleBox)
+# Datenbank für die Registrieungen erstellen
 mysql -uroot -prootpass -e "DROP DATABASE IF EXISTS formresponses; 
 	CREATE DATABASE formresponses; 
 	USE formresponses; 
