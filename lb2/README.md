@@ -16,7 +16,7 @@
     - [1. Via SSH auf Datenbankserver verbinden](#1.-via-ssh-auf-datenbankservre-verbinden)
     - [2. In MySQL einloggen](#2.-in-mysql-einloggen)
     - [3. Datenbank verwenden und Tabelle anzeigen](#3.-datenbank-verwenden-und-tabelle-anzeigen)
-    - [Exit](#exit)
+    - [Verlassen der VM](#verlassen-der-vm)
 - [Sicherheit](#sicherheit)
 - [Quellen](#quellen)
 
@@ -107,13 +107,13 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 - Mit `use formresponses;` Datenbank verwenden
 - Tabelle anzeigen mit `select*from response;`
 
-### Exit
+### Verlassen der VM
 - Um die VM zu verlassen und die SHH-Verbindung zu trennen, muss man den Befehl `exit` eintippen.
 ---
 
 ## Sicherheit
 - Der Datenbankserver bzw. MySQL ist mit einem Passwort geschützt
-- Der ist mit dem ungeschützten Protokoll "http" erreichbar.
+- Der ist mit dem ungeschützten Protokoll "HTTP" erreichbar.
 
 ---
 ### Quellen
