@@ -10,24 +10,24 @@
 			<th>Last Name</th>
 		</tr>
             <?php
-            //Check if something is in the Database
+            // Schauen, ob etwas in der Datenbank ist
             if(isset($_POST['submit']))
             {
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
-
+		
                 $con = mysqli_connect('192.168.0.30', 'root', 'rootpass','formresponses');
-            // It checks if the connection is available to the Database
+            // Verindung zur Datenbank überprüfen
                 if (!$con)
                 {
                     die("Connection failed!" . mysqli_connect_error());
                 }
-            // Insert the Data to the Table contact
+            // Daten in die Tabelle legen
                 $sql = "INSERT INTO response (firstname, lastname) VALUES ('$firstname', '$lastname')";
 
 
                 $rs = mysqli_query($con, $sql);
-            // It will give a output, if something is written in the Database                
+            // Gibt einen Output, wenn etwas in der Datenbank ist          
                 if($rs)
                 {
 			$selectsql = "SELECT firstname, lastname from response";
