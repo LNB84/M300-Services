@@ -15,7 +15,9 @@
     - [Herunterfahren](#herunterfahren)
     -  [VMs löschen](#vms-löschen)
 - [Via SSH auf die VMs zugreifen](#via-ssh-auf-die-vms-zugreifen)
-- [Datenbank auf MySQL überprüfen](#datenbank-auf-mysql-überprüfen)
+- [Testing Website](#testing-website)
+	- [1. User Registrieren](#1.-user-registrieren) 
+- [Testing Datenbank](#testing-datenbank)
     - [Passwort](#Passwort)
     - [1. Via SSH auf Datenbankserver verbinden](#1.-via-ssh-auf-datenbankservre-verbinden)
     - [2. In MySQL einloggen](#2.-in-mysql-einloggen)
@@ -191,8 +193,12 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 
 ---
 
-## Datenbank auf MySQL überprüfen
+## Testing Website
+### 1. User Registrieren
+- Im Webbrowser die IP mit dem Port `192.168.0.20:8080` eintragen
+- Name nach Wahl eintragen
 
+## Testing Datenbank
 ### Passwort
 
 - Benutzername: root
