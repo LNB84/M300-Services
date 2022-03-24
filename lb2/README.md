@@ -75,10 +75,12 @@ Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webs
 # Pfad für die zusätzlichen Files
 ADDITIONALFILES = Dir.pwd + "/AdditionalFiles"
 ```
+Als erstes geben wir den Pfad an, an dem die Files sind, welche wir für die VMs brauchen
 ```
-# Konfiguration
 Vagrant.configure("2") do |config|
-
+```
+Ab hier startet die Konfiguration der VMs
+```
 # Ordner teilen
   config.vm.synced_folder ADDITIONALFILES, "/var/www"
   config.vm.box = "ubuntu/bionic64"
