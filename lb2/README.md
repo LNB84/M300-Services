@@ -72,26 +72,31 @@ Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webs
 
 ### Vagrantfile
 ```
-# Pfad für die zusätzlichen Files
 ADDITIONALFILES = Dir.pwd + "/AdditionalFiles"
 ```
-Als erstes geben wir den Pfad an, an dem die Files sind, welche wir für die VMs brauchen
+Als erstes geben wir den Pfad an, an dem die Files sind, welche wir für die VMs brauchen.
 ```
 Vagrant.configure("2") do |config|
 ```
-Ab hier startet die Konfiguration der VMs
+Ab hier startet die Konfiguration der VMs.
 ```
-# Ordner teilen
   config.vm.synced_folder ADDITIONALFILES, "/var/www"
+```
+Hier teilen wir den Ordner für die VMs.
+```
   config.vm.box = "ubuntu/bionic64"
-
+```
+Nun geben wir noch die Box der VMs an, damit Vagrant dies installieren kann.
+```
 # Webserver Konfiguration
   config.vm.define "web" do |web|
     web.vm.provider :virtualbox do |vb|
      vb.name = "m300_webserver"
      vb.memory = 1024
     end
-
+```
+Bei diesem Schritt Konfigurieren wir den Webserver.
+```
 # Netzwerk-Konfiguration für den Webserver
   web.vm.network "private_network", ip: "192.168.0.20"
 #   virtualbox_intnet: true
@@ -102,13 +107,18 @@ Ab hier startet die Konfiguration der VMs
 
 
   end
-
+```
+Hier wird noch die Netzwerkkonfiguration angegeben.
+```
 # Datenbankserver Konfiguration
   config.vm.define "db" do |db|
     db.vm.provider :virtualbox do |vb|
       vb.name = "m300_database"
      vb.memory = 2048
   end
+```
+Wie beim Webserver konfigurieren wir hier den Datenbankserver.
+```
 
 # Netzwerk-Konfiguration für den Datenbankserver
   db.vm.network "private_network", ip: "192.168.0.30"
@@ -123,9 +133,13 @@ Ab hier startet die Konfiguration der VMs
 
 
 end
+```
+Zum Schluss konfigurieren wir noch das Netzwerk des Datenbankservers.
+```
 
 ```
 ### web shell
+Dieser Code zeigt die Installation der Dienste auf dem Webserver. Dies muss gemacht werden, damit wir überhaupt eine Webseite erstellen können.
 ```
 # Pakete herunterladen
 apt-get update
@@ -141,6 +155,7 @@ sudo apt-get install -y php libapache2-mod-php php-mysql
 sudo service apache2 restart
 ```
 ### db shell
+Folgende Konfigurationen müssen gemacht werden, damit MySQL installiert und die Datenbank erstellt wird.
 ```
 # Pakete herunterladen
 sudo apt-get update
@@ -148,9 +163,13 @@ sudo apt-get update
 # mysql Passwort: rootpass
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password rootpass'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password rootpass'
+```
 
 # mysql installieren
 sudo apt-get install -y mysql-server
+```
+In diesem Schritt wird MySQL installiert.
+```
 
 sudo sed -i -e"s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -168,6 +187,7 @@ mysql -uroot -prootpass -e "DROP DATABASE IF EXISTS formresponses;
 		firstname VARCHAR(20), lastname VARCHAR(20));"
 sudo service mysql restart
 ```
+In diesen Schritten wird eine neue Tabelle erstellt. In diese Tabelle werden die Daten der Registrierung gespeichert.
 ---
 
 ## Vagrantumgebung Starten/Herunterfahren
