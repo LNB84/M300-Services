@@ -74,7 +74,8 @@ Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webs
 ```
 # Pfad für die zusätzlichen Files
 ADDITIONALFILES = Dir.pwd + "/AdditionalFiles"
-
+```
+```
 # Konfiguration
 Vagrant.configure("2") do |config|
 
