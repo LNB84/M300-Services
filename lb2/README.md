@@ -61,7 +61,7 @@ Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webs
 - **Datenbankserver:**
     - Ubuntu/bionic64
     - 2048 RAM
-    - Name: database
+    - Name: m300_database
     - MySQL-Dienst
     - IP-Adresse: 192.168.0.30
     - Port: 80
