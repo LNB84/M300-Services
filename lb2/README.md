@@ -135,11 +135,9 @@ Wie beim Webserver konfigurieren wir hier den Datenbankserver.
 end
 ```
 Zum Schluss konfigurieren wir noch das Netzwerk des Datenbankservers.
-```
 
-```
 ### web shell
-Dieser Code zeigt die Installation der Dienste auf dem Webserver. Dies muss gemacht werden, damit wir überhaupt eine Webseite erstellen können.
+Dieser Code zeigt die Installation der Dienste auf dem Webserver. Dies muss gemacht werden, damit wir überhaupt eine Website erstellen können.
 ```
 # Pakete herunterladen
 apt-get update
@@ -189,7 +187,99 @@ sudo service mysql restart
 ```
 In diesen Schritten wird eine neue Tabelle erstellt. In diese Tabelle werden die Daten der Registrierung gespeichert.
 ---
+### HTML File
+Folgendes HTML-File haben wir für unsere Website haben erstellt. Hier werden die Daten in die Variabeln gespeichert.
+```
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M300 - Registration</title>
+</head>
+<body>
+<div class="form">
+    <form method="POST" action="process.php">
+        <h1>M300 - Registration</h1>
+        <p>This form will send the following data to the database server.</p>
+        <table>
+            <tr>
+                <td>
+                    <label for="firstname">First Name:</label><br>
+                    <input type="text" name="firstname" id="">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="lastname">Last Name:</label><br>
+                    <input type="text" name="lastname" id="">
+                </td>
+            </tr>
+            <td>
+                <input type="submit" name="submit" value="Sign Up!">
+            </td>
+        </table>
+    </form>
+</div>
+</body>
+</html>
+```
+### PHP Prozess
+Folgende Verbindungen müssen im PHP-File vorhanden sein. Diese Daten werden an den MySQL-Server gesendet.
+```
+<!doctype html>
+<html>
+<head>
+<title>Database output</title>
+</head>
+<body>
+    <table>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+		</tr>
+            <?php
+            // Schauen, ob etwas in der Datenbank ist
+            if(isset($_POST['submit']))
+            {
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
+		
+                $con = mysqli_connect('192.168.0.30', 'root', 'rootpass','formresponses');
+            // Verindung zur Datenbank überprüfen
+                if (!$con)
+                {
+                    die("Connection failed!" . mysqli_connect_error());
+                }
+            // Daten in die Tabelle legen
+                $sql = "INSERT INTO response (firstname, lastname) VALUES ('$firstname', '$lastname')";
 
+
+                $rs = mysqli_query($con, $sql);
+            // Gibt einen Output, wenn etwas in der Datenbank ist          
+                if($rs)
+                {
+			$selectsql = "SELECT firstname, lastname from response";
+			$resultat = $con-> query($selectsql);
+
+			if ($resultat-> num_rows > 0) {
+				while ($row = $resultat-> fetch_assoc()) {
+					echo "</td><td>". $row["firstname"] ."</td><td>". $row["lastname"] ."</td><td>";
+			}
+				echo "</table>";
+			}
+                }
+                else
+                {
+                    echo "The Data couldn't be loaded in the database.";
+                }
+            }
+        ?>
+    </table>
+</body>
+</html>
+```
 ## Vagrantumgebung Starten/Herunterfahren
 
 ### Hochfahren
