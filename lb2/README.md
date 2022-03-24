@@ -10,6 +10,8 @@
 	- [Vagrantfile](#vagrantfile)
 	- [web shell](#web-shell)
 	- [db shell](#db-shell)
+	- [HTML-File](#htmnl-file)
+	- [PHP Prozess](#php-prozess)
 - [Vagrantumgebung Starten/Herunterfahren](#vagrantumgebung-starten-/-herunterfahren)
     - [Hochfahren](#hochfahren)
     - [Herunterfahren](#herunterfahren)
@@ -186,8 +188,9 @@ mysql -uroot -prootpass -e "DROP DATABASE IF EXISTS formresponses;
 sudo service mysql restart
 ```
 In diesen Schritten wird eine neue Tabelle erstellt. In diese Tabelle werden die Daten der Registrierung gespeichert.
+
 ---
-### HTML File
+### HTML-File
 Folgendes HTML-File haben wir für unsere Website haben erstellt. Hier werden die Daten in die Variabeln gespeichert.
 ```
 <!DOCTYPE html>
