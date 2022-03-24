@@ -10,7 +10,7 @@
 	- [Vagrantfile](#vagrantfile)
 	- [web shell](#web-shell)
 	- [db shell](#db-shell)
-	- [HTML-File](#htmnl-file)
+	- [HTML-File](#html-file)
 	- [PHP Prozess](#php-prozess)
 - [Vagrantumgebung Starten/Herunterfahren](#vagrantumgebung-starten-/-herunterfahren)
     - [Hochfahren](#hochfahren)
