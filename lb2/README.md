@@ -63,7 +63,7 @@ Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webs
     - 2048 RAM
     - Name: database
     - MySQL-Dienst
-    - IP-Adresse: 192.168.0.20
+    - IP-Adresse: 192.168.0.30
     - Port: 80
     - Portforwarding: 3306
 
