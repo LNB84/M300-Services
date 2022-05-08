@@ -1,9 +1,8 @@
 version: '2'
 services:
-  php-apache-environment:
-    container_name: php-apache
-    image: php:8.0-apache
-    volumes:
-      - .//src:/var/www/html/
+  apache:
+    image: httpd:2.4
     ports:
-      - 8080:80
+      - 80:80
+    volumes:
+      - ./src:/usr/local/apache2/htdocs
