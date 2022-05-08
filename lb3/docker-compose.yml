@@ -1,9 +1,9 @@
-version: '3.8'
+version: '3.3'
 services:
   php-apache-environment:
     container_name: php-apache
     image: php:8.0-apache
     volumes:
-      - ./php/src:/var/www/html/
+      - .//src:/var/www/html/
     ports:
-      - 8000:80
+      - 8080:80
