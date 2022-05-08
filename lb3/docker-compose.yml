@@ -1,70 +1,9 @@
----
-
-version: "2"
-
-
+version: '2'
 services:
-# --- MySQL 5.7
-#
-mysql:
-  container_name: "dstack-mysql"
-  image: bitnami/mysql:5.7
-  environment:
-    - MYSQL_ROOT_PASSWORD=admin
-    - MYSQL_USER=admin
-    - MYSQL_PASSWORD=admin
-  ports:
-    - '3306:3306'
-  volumes:
-    - ./docker/db/daten:/bitnami/mysql/data
-# --- PHP 7.4
-#
-php:
-  container_name: "dstack-php"
-  image: bitnami/php-fpm:7.4
-  depends_on:
-    - redis
-  volumes:
-    - ./docker/www:/app:delegated
-    - ./docker/php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
-# --- Apache 2.4
-#
-apache:
-  container_name: "dstack-apache"
-  image: bitnami/apache:2.4
-  ports:
-    - '80:8080'
-    - '443:4433'
-  depends_on:
-    - php
-  volumes:
-    - ./docker/www:/app:delegated
-    - ./docker/wb/my_vhost.conf:/vhosts/myapp.conf:ro
-    - ./docker/wb/certs:/certs
-    # Use this for bitnami's builtin certs:
-    # ./docker/apache/certs:/opt/bitnami/apache2/conf/bitnami/certs 
-# --- Redis 6.0
-#
-redis:
-  container_name: "dstack-redis"
-  image: bitnami/redis:6.0
-  environment:
-    - REDIS_PASSWORD=admin
-# --- PhpMyAdmin latest
-# Acccess via
-# http://127.0.0.1:81 or https://127.0.0.1:8143
-# Login with user root and mysql-password.
-#
-phpmyadmin:
-  container_name: "dstack-phpmyadmin"
-  image: bitnami/phpmyadmin:latest
-  depends_on:
-    - mysql
-  ports:
-    - '81:8080'
-    - '8143:8081'
-  environment:
-    - DATABASE_HOST=host.docker.internal
-volumes:
-  dstack-mysql:
-    driver: local
+  php-apache-environment:
+    container_name: php-apache
+    image: php:8.0-apache
+    volumes:
+      - .//src:/var/www/html/
+    ports:
+      - 8080:80
