@@ -31,7 +31,7 @@
 ---
 
 ## Projektbeschreibung
-In der LB3 des Moduls 300 (Plattformübergreifende Dienste in ein Netzwerk integrieren) arbeiten wir mit Containern. Das Ziel ist anhand von Docker ein Dienst mit Containern automatisiert aufsetzen zu können. In userem Fall ist das einen Webserver mit Apache und einen Datenbankserver mit MySQL. Zu MySQL haben wir auch noch phpMyAdmin. Mit dem Befehl docker-compose werden Daten automatisiert in eine MySQL Datenbank geschrieben. Diese Einträge sind dann auf dem Webserver ersichtlich. Die Dokumentation der LB3 wird in Markdown geschrieben.
+In der LB3 des Moduls 300 (Plattformübergreifende Dienste in ein Netzwerk integrieren) arbeiten wir mit Containern. Das Ziel ist anhand von Docker ein Dienst mit Containern automatisiert aufsetzen zu können. In userem Fall ist das einen Webserver mit Apache und einen Datenbankserver mit MySQL. Zu MySQL haben wir auch noch phpMyAdmin. Mit dem Befehl docker-compose werden Daten automatisiert in eine MySQL Datenbank geschrieben. Zu den Daten gehört der Username und das Passwort. Diese Einträge sind dann auf dem Webserver ersichtlich. Die Dokumentation der LB3 wird in Markdown geschrieben.
 
 ### Voraussetzungen
 - Auf der VM muss Docker-Compose installiert sein
@@ -44,7 +44,7 @@ In der LB3 des Moduls 300 (Plattformübergreifende Dienste in ein Netzwerk integ
 
 Die Umgebung besteht aus drei Containern. Auf ersten ist Apache und PHP installiert, auf dem zweiten MySQL und auf dem letzten noch PhpMyAdmin
 
-[M300-Banner](Umgebung_m300.png)
+![M300-Banner](Umgebung_m300.png)
 
 ### Identifikationen
 - **Webserver**
@@ -74,215 +74,138 @@ Die Umgebung besteht aus drei Containern. Auf ersten ist Apache und PHP installi
 
 ## Code
 
-### Vagrantfile
+### Docker-Compose
 ```
-ADDITIONALFILES = Dir.pwd + "/AdditionalFiles"
+version: '2'
 ```
-Als erstes geben wir den Pfad an, an dem die Files sind, welche wir für die VMs brauchen.
+Als erstes definieren wir die Version von Docker-Compose.
 ```
-Vagrant.configure("2") do |config|
+networks:
+    lb3_Network:
 ```
-Ab hier startet die Konfiguration der VMs.
+Als nächstes wir das Netzwerk für die Container definiert. In userem Fall lb3_Network.
 ```
-  config.vm.synced_folder ADDITIONALFILES, "/var/www"
+services:
 ```
-Hier teilen wir den Ordner für die VMs.
+Ab hier werden die verschiedenen Containern erstellt.
 ```
-  config.vm.box = "ubuntu/bionic64"
+php-apache-environment:
+        container_name: lb3_php-apache
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+        volumes:
+            - ./php/src:/var/www/html/
+        ports:
+            - "8080:80"
+        networks:
+            - lb3_Network
 ```
-Nun geben wir noch die Box der VMs an, damit Vagrant dies installieren kann.
+Nun erstellen wir den ersten Containern mit den folgenden Eigenschaften. Hier ist es der Webserver-Container.
 ```
-# Webserver Konfiguration
-  config.vm.define "web" do |web|
-    web.vm.provider :virtualbox do |vb|
-     vb.name = "m300_webserver"
-     vb.memory = 1024
-    end
+db:
+        container_name: lb3_db
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+            MYSQL_DATABASE: MYSQL_DATABASE
+            MYSQL_USER: MYSQL_USER
+            MYSQL_PASSWORD: MYSQL_PASSWORD
+        build:
+            context: ./mysql
+            dockerfile: Dockerfile
+        volumes:
+            - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - "9906:3306"
+        networks:
+            - lb3_Network
 ```
-Bei diesem Schritt Konfigurieren wir den Webserver.
+Als nächstes die Datenbank.
 ```
-# Netzwerk-Konfiguration für den Webserver
-  web.vm.network "private_network", ip: "192.168.0.20"
-#   virtualbox_intnet: true
-  web.vm.network "forwarded_port", guest: 80, host: 8080
-  
-# File zum Apache installieren
-  web.vm.provision "shell", path: "web_shell.sh"
+phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        
+        restart: always
+        environment:
+              PMA_HOST: db
+        depends_on:
+            - db
+        ports:
+            - "8000:80"
+        networks:
+            - lb3_Network
+```
+Und zuletzt noch phpMyAdmin.
 
+### Dockerfile php
+Dieser Code zeigt das Image basiert auf php.
+```
+FROM php:8.0-apache
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN apt-get update && apt-get upgrade -y
+```
+### php Index-File
+Mit dem folgenden Code werden die Daten von der Datenbank auf den Webserver geschrieben.
+```
+<?php
+// Der MySQL Servicename, welcher im docker-compose.yml definiert ist.
+$host = 'db';
 
-  end
-```
-Hier wird noch die Netzwerkkonfiguration angegeben.
-```
-# Datenbankserver Konfiguration
-  config.vm.define "db" do |db|
-    db.vm.provider :virtualbox do |vb|
-      vb.name = "m300_database"
-     vb.memory = 2048
-  end
-```
-Wie beim Webserver konfigurieren wir hier den Datenbankserver.
-```
+// Datenbank Username
+$user = 'MYSQL_USER';
 
-# Netzwerk-Konfiguration für den Datenbankserver
-  db.vm.network "private_network", ip: "192.168.0.30"
-#   virtualbox_intnet: true
-  db.vm.network "forwarded_port", guest: 80, host: 3306
+// Datenbank User Passwort
+$pass = 'MYSQL_PASSWORD';
 
-# File mit der Datenbank-Installation
- db.vm.provision "shell", path: "db_shell.sh"
- 
+// Datenbankname
+$mydatabase = 'MYSQL_DATABASE';
 
-  end
+// Verbindung zur Datenbank herstellen
+$conn = new mysqli($host, $user, $pass, $mydatabase);
 
+// Anfrage
+$sql = 'SELECT * FROM users';
 
-end
-```
-Zum Schluss konfigurieren wir noch das Netzwerk des Datenbankservers.
+if ($result = $conn->query($sql)) {
+    while ($data = $result->fetch_object()) {
+        $users[] = $data;
+    }
+}
 
-### web shell
-Dieser Code zeigt die Installation der Dienste auf dem Webserver. Dies muss gemacht werden, damit wir überhaupt eine Website erstellen können.
-```
-# Pakete herunterladen
-apt-get update
-
-# Apache installieren
-apt install -y apache2
-
-# PHP installieren
-sudo apt-get install -y php-fpm php-mysql
-sudo apt-get install -y php libapache2-mod-php php-mysql
-
-# Dienst neu Starten
-sudo service apache2 restart
-```
-### db shell
-Folgende Konfigurationen müssen gemacht werden, damit MySQL installiert und die Datenbank erstellt wird.
-```
-# Pakete herunterladen
-sudo apt-get update
-# mysql Benutzername: root
-# mysql Passwort: rootpass
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password rootpass'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password rootpass'
-```
-```
-# mysql installieren
-sudo apt-get install -y mysql-server
-```
-In diesem Schritt wird MySQL installiert.
+foreach ($users as $user) {
+    echo "<br>";
+    echo $user->username . " " . $user->password;
+    echo "<br>";
+}
+?>
 ```
 
-sudo sed -i -e"s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
-
-# Root-Zugriff von jedem Host
-echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'rootpass' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql -u root --password=rootpass
-
-#Service neu starten
-sudo service mysql restart
-
-# Datenbank für die Registrieungen erstellen
-mysql -uroot -prootpass -e "DROP DATABASE IF EXISTS formresponses; 
-	CREATE DATABASE formresponses; 
-	USE formresponses; 
-	CREATE TABLE response (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-		firstname VARCHAR(20), lastname VARCHAR(20));"
-sudo service mysql restart
+### Dockerfile für MySQL
+Dieser Code verweist auf ein Datenbankscript, welches eine Tabelle erstellt und Daten einträgt.
 ```
-In diesen Schritten wird eine neue Tabelle erstellt. In diese Tabelle werden die Daten der Registrierung gespeichert.
+FROM mysql:8.0
 
-### HTML-File
-Folgendes HTML-File haben wir für unsere Website haben erstellt. Hier werden die Daten in die Variabeln gespeichert.
+COPY ./mysql/init.sql /docker-entrypoint-init.d/init.sql
 ```
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M300 - Registration</title>
-</head>
-<body>
-<div class="form">
-    <form method="POST" action="process.php">
-        <h1>M300 - Registration</h1>
-        <p>This form will send the following data to the database server.</p>
-        <table>
-            <tr>
-                <td>
-                    <label for="firstname">First Name:</label><br>
-                    <input type="text" name="firstname" id="">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="lastname">Last Name:</label><br>
-                    <input type="text" name="lastname" id="">
-                </td>
-            </tr>
-            <td>
-                <input type="submit" name="submit" value="Sign Up!">
-            </td>
-        </table>
-    </form>
-</div>
-</body>
-</html>
+### SQL-Code
+Folgender SQL-Code erstellt eine Tabelle und trägt Daten ein.
 ```
-### PHP Prozess
-Folgende Verbindungen müssen im PHP-File vorhanden sein. Diese Daten werden an den MySQL-Server gesendet.
-```
-<!doctype html>
-<html>
-<head>
-<title>Database output</title>
-</head>
-<body>
-    <table>
-		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-		</tr>
-            <?php
-            // Schauen, ob etwas in der Datenbank ist
-            if(isset($_POST['submit']))
-            {
-                $firstname = $_POST['firstname'];
-                $lastname = $_POST['lastname'];
-		
-                $con = mysqli_connect('192.168.0.30', 'root', 'rootpass','formresponses');
-            // Verindung zur Datenbank überprüfen
-                if (!$con)
-                {
-                    die("Connection failed!" . mysqli_connect_error());
-                }
-            // Daten in die Tabelle legen
-                $sql = "INSERT INTO response (firstname, lastname) VALUES ('$firstname', '$lastname')";
-
-
-                $rs = mysqli_query($con, $sql);
-            // Gibt einen Output, wenn etwas in der Datenbank ist          
-                if($rs)
-                {
-			$selectsql = "SELECT firstname, lastname from response";
-			$resultat = $con-> query($selectsql);
-
-			if ($resultat-> num_rows > 0) {
-				while ($row = $resultat-> fetch_assoc()) {
-					echo "</td><td>". $row["firstname"] ."</td><td>". $row["lastname"] ."</td><td>";
-			}
-				echo "</table>";
-			}
-                }
-                else
-                {
-                    echo "The Data couldn't be loaded in the database.";
-                }
-            }
-        ?>
-    </table>
-</body>
-</html>
+Use MYSQL_DATABASE;
+drop table if exists `users`;
+create table `users` (
+    id int not null auto_increment,
+    username text not null,
+    password text not null,
+    primary key (id)
+);
+insert into `users` (username, password) values
+    ("Administrator","password"),
+    ("Testuser","this is my password"),
+    ("Job","12345678");>
 ```
 
 ---
