@@ -7,24 +7,20 @@
 - [Aufbau der Umgebung](#aufbau-der-umgebung)
 	- [Identifikationen](#identifikationen)
 - [Code](#code)
-	- [Vagrantfile](#vagrantfile)
-	- [web shell](#web-shell)
-	- [db shell](#db-shell)
-	- [HTML-File](#html-file)
-	- [PHP Prozess](#php-prozess)
-- [Vagrantumgebung Starten/Herunterfahren](#vagrantumgebung-starten-/-herunterfahren)
+	- [Docker-Compose](#docker---compose)
+	- [Dockerfile php](#dockerfile-php)
+	- [php Index File](#php-index-file)
+	- [Dockerfile für MySQL](#Dockerfile-für-mysql)
+	- [SQL-Code](#sql---code)
+- [Dockerumgebung Starten/Herunterfahren](#dockerumgebung-starten-/-herunterfahren)
     - [Hochfahren](#hochfahren)
-    - [Herunterfahren](#herunterfahren)
-    -  [VMs löschen](#vms-löschen)
-- [Via SSH auf die VMs zugreifen](#via-ssh-auf-die-vms-zugreifen)
+    - [Container stoppen](#container_stoppen)
+    -  [Conatiner löschen](#container-löschen)
 - [Testing Website](#testing-website)
-	- [User Registrieren](#user-registrieren) 
-- [Testing Datenbank](#testing-datenbank)
+	- [Userdaten ansehen](#userdaten_ansehen) 
+- [Testing phpMyAdmin](#testing-phpmyadmin)
     - [Passwort](#Passwort)
-    - [1. Via SSH auf Datenbankserver verbinden](#1.-via-ssh-auf-datenbankservre-verbinden)
-    - [2. In MySQL einloggen](#2.-in-mysql-einloggen)
-    - [3. Datenbank verwenden und Tabelle anzeigen](#3.-datenbank-verwenden-und-tabelle-anzeigen)
-    - [Verlassen der VM](#verlassen-der-vm)
+    - [phpMyAdmin](#phpMyAdmin)
 - [Sicherheit](#sicherheit)
 - [Quellen](#quellen)
 
@@ -148,7 +144,7 @@ FROM php:8.0-apache
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 RUN apt-get update && apt-get upgrade -y
 ```
-### php Index-File
+### php Index File
 Mit dem folgenden Code werden die Daten von der Datenbank auf den Webserver geschrieben.
 ```
 <?php
@@ -218,17 +214,17 @@ Um die Umgebung zu starten muss man **im Ordner vom docker-compose.yml** den Bef
 ### Container stoppen
 Um die Umgebung herunterzufahren kann man ins Terminal `docker stop "Container-ID"`  schreiben.
 
-### VMs löschen
-Um die VMs zu löschen kann man ins Terminal `docker rm "Container-ID"`" schreiben.
+### Container löschen
+Um die Container zu löschen kann man ins Terminal `docker rm "Container-ID"`" schreiben.
 
 ---
 
 ## Testing
-### User Registrieren
+### Userdaten ansehen
 - Im Webbrowser die IP mit dem Port `192.168.60.101:8080` eintragen
-- Die Daten 
+- Die Daten der Datenbank werden angezeigt
 
-## Testing phpMyadmin
+## Testing phpMyAdmin
 ### Passwort
 
 - Benutzername: root
