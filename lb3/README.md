@@ -44,7 +44,7 @@ In der LB3 des Moduls 300 (Plattformübergreifende Dienste in ein Netzwerk integ
 
 Die Umgebung besteht aus drei Containern. Auf ersten ist Apache und PHP installiert, auf dem zweiten MySQL und auf dem letzten noch PhpMyAdmin
 
-![M300-Banner](Umgebung_m300.png)
+[M300-Banner](Umgebung_m300.png)
 
 ### Identifikationen
 - **Webserver**
