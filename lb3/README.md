@@ -31,42 +31,44 @@
 ---
 
 ## Projektbeschreibung
-In der LB2 des Moduls 300 (Plattformübergreifende Dienste in ein Netzwerk integrieren) arbeiten wir mit Vagrant. Das Ziel ist anhand von Vagrant ein Dienst mit VMs automatisiert aufsetzen zu können. In userem Fall ist das einen Webserver mit Apache und einen Datenbankserver mit MySQL. Der User füllt auf unserer Website ein Formular mit Vorname und Nachname aus. Diese Informationen werden dann in der MySQL-Datenbank gespeichert. Die Dokumentation der LB2 wird in Markdown geschrieben.
+In der LB3 des Moduls 300 (Plattformübergreifende Dienste in ein Netzwerk integrieren) arbeiten wir mit Containern. Das Ziel ist anhand von Docker ein Dienst mit Containern automatisiert aufsetzen zu können. In userem Fall ist das einen Webserver mit Apache und einen Datenbankserver mit MySQL. Zu MySQL haben wir auch noch phpMyAdmin. Mit dem Befehl docker-compose werden Daten automatisiert in eine MySQL Datenbank geschrieben. Diese Einträge sind dann auf dem Webserver ersichtlich. Die Dokumentation der LB3 wird in Markdown geschrieben.
 
 ### Voraussetzungen
-- Die neuste Version von Virtualbox muss installiert sein
-- Auf Virtualbox dürfen keine VMs vorhanden sein, die "m300_webserver" oder "m300_database" heissen
-- Vagrant muss installiert sein
+- Auf der VM muss Docker-Compose installiert sein
+- Das Git Repository muss lokal auf der VM sein
+- Vagrant muss installiert sein (Für die VM)
 
 ---
 
 ## Aufbau der Umgebung
 
-Die Umgebung besteht aus einem Webserver und einem Datenbankserver. Auf dem Webserver ist Apache und PHP installiert und auf der Datenbank MySQL.
+Die Umgebung besteht aus drei Containern. Auf ersten ist Apache und PHP installiert, auf dem zweiten MySQL und auf dem letzten noch PhpMyAdmin
 
 ![M300-Banner](Umgebung_m300.png)
 
 ### Identifikationen
 - **Webserver**
-    - Ubuntu/bionic64
-    - 1024 MB RAM
-    - Name: m300_webserver
+    - php-Apache
+    - Name: lb3_php-apache
     - Apache2-Dienst
     - PHP
-    - IP-Adresse: 192.168.0.20
     - Port: 80
     - Portforwarding: 8080
 
 
 - **Datenbankserver:**
-    - Ubuntu/bionic64
-    - 2048 RAM
-    - Name: m300_database
+    - MySQL
+    - Name: lb3_mysql
     - MySQL-Dienst
-    - IP-Adresse: 192.168.0.30
-    - Port: 80
-    - Portforwarding: 3306
+    - Port: 3306
+    - Portforwarding: 9906 
 
+
+- **phpMyAdmin:**
+    - phpMyAdmin
+    - Name: lb3_mysql
+    - Port: 80
+    - Portforwarding: 8000 
 
 ---
 
