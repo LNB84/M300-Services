@@ -210,57 +210,34 @@ insert into `users` (username, password) values
 
 ---
 
-## Vagrantumgebung Starten/Herunterfahren
+## Dockerumgebung Starten/Herunterfahren
 
 ### Hochfahren
-Um die Umgebung zu starten öffnet man als erstes **im Ordner vom Vagrantfile** ein git Bash Terminal. In dieses kann man dann `vagrant up` schreiben. Danach werden die VMs aufgesetzt.
+Um die Umgebung zu starten muss man **im Ordner vom docker-compose.yml** den Befehl `docker-compose up -d` eintragen.
 
-### Herunterfahren
-Um die Umgebung herunterzufahren kann man ins gleiche Terminal `vagrant halt`  schreiben.
+### Container stoppen
+Um die Umgebung herunterzufahren kann man ins Terminal `docker stop "Container-ID"`  schreiben.
 
 ### VMs löschen
-Um die VMs zu löschen kann man ins Terminal `vagrant destroy`" schreiben. Danach bestätigt man mit `y`, dass man die VMs löschen möchte.
-
->**NOTE:** Das Terminal muss immer **im Ordner vom Vagrantfile** geöffnet sein!
- 
- ---
- 
-## Via SSH auf die VMs zugreifen
-
-Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleichen Ordner wie das Vagrantfile** sein und den Befehl **vagrant ssh "Maschine"** eingeben.
-
-|Welche Maschine  |Command (im Terminal)              |
-|-----------------|-----------------------------------|
-|Webserver    |`vagrant ssh web`       |
-|Datenbankserver  |`vagrant ssh db`        |
+Um die VMs zu löschen kann man ins Terminal `docker rm "Container-ID"`" schreiben.
 
 ---
 
-## Testing Website
+## Testing
 ### User Registrieren
-- Im Webbrowser die IP mit dem Port `192.168.0.20:80` eintragen
-- Name nach Wahl eintragen
+- Im Webbrowser die IP mit dem Port `192.168.60.101:8080` eintragen
+- Die Daten 
 
-## Testing Datenbank
+## Testing phpMyadmin
 ### Passwort
 
 - Benutzername: root
-- Passwort: rootpass
+- Passwort: MYSQL_ROOT_PASSWORD
 
-### 1. Via SSH auf Datenbankserver verbinden
-- Terminal im Ordner vom Vagrantfile öffnen
-- Ins Terminal `vagrant shh db` tippen
+### phpMyAdmin
+- Datenbank MYSQL_DATABASE auswählen
+- Datensätze ansehen
 
-### 2. In MySQL einloggen
-- Mit `mysql -uroot -p` in MySQL einloggen
-- In die Passwortabfrage `rootpass` eintppen
-
-### 3. Datenbank verwenden und Tabelle anzeigen
-- Mit `use formresponses;` Datenbank verwenden
-- Tabelle anzeigen mit `select*from response;`
-
-### Verlassen der VM
-- Um die VM zu verlassen und die SHH-Verbindung zu trennen, muss man den Befehl `exit` eintippen
 ---
 
 ## Sicherheit
@@ -269,10 +246,8 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 
 ---
 ### Quellen
-[MySQL Installation](https://linuxize.com/post/how-to-install-mysql-on-ubuntu-18-04/)
+[Docker Netzwerk](https://docs.docker.com/compose/networking/)
 
-[Webserver mit MySQL](https://medium.com/analytics-vidhya/web-development-basics-how-to-connect-html-form-to-mysql-using-php-on-apache-web-server-part-1-7edce564169e)
-
-[Website Formular](https://www.youtube.com/watch?v=gpM9hUKXLgk&ab_channel=ProgrammingKnowledge)
+[SQL-Code](https://stackoverflow.com/questions/64428866/create-database-and-table-automatically-with-docker-compose)
 
 [PHP Syntax](https://www.w3schools.com/php/php_syntax.asp)
