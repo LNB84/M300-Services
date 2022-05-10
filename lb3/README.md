@@ -231,6 +231,8 @@ Um die Container zu löschen kann man ins Terminal `docker rm "Container-ID"`" s
 - Passwort: MYSQL_ROOT_PASSWORD
 
 ### phpMyAdmin
+
+- Im Webbrowser die IP mit dem Port `192.168.60.101:8000` eintragen
 - Datenbank MYSQL_DATABASE auswählen
 - Datensätze ansehen
 
