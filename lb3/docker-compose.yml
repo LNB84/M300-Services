@@ -23,6 +23,8 @@ services:
         build:
             context: ./mysql
             dockerfile: Dockerfile
+        volumes:
+            - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
         ports:
             - "9906:3306"
     

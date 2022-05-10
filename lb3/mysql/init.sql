@@ -7,6 +7,6 @@ create table `users` (
     primary key (id)
 );
 insert into `users` (username, password) values
-    ("admin","password"),
-    ("Alice","this is my password"),
+    ("Administrator","password"),
+    ("Testuser","this is my password"),
     ("Job","12345678");
