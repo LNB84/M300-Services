@@ -1,22 +1,20 @@
 <?php
-//These are the defined authentication environment in the db service
-
-// The MySQL service named in the docker-compose.yml.
+// Der MySQL Servicename, welcher im docker-compose.yml definiert ist.
 $host = 'db';
 
-// Database use name
+// Datenbank Username
 $user = 'MYSQL_USER';
 
-//database user password
+// Datenbank User Passwort
 $pass = 'MYSQL_PASSWORD';
 
-// database name
+// Datenbankname
 $mydatabase = 'MYSQL_DATABASE';
-// check the mysql connection status
 
+// Verbindung zur Datenbank herstellen
 $conn = new mysqli($host, $user, $pass, $mydatabase);
 
-// select query
+// Anfrage
 $sql = 'SELECT * FROM users';
 
 if ($result = $conn->query($sql)) {
