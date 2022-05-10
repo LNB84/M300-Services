@@ -1,4 +1,4 @@
-# M300 | Webserver mit Registrierung und MySQL
+# M300 | Webserver mit MySQL und phpMyAdmin
 
 ## Inhaltsverzeichnis
 
