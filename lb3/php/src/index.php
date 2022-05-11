@@ -22,7 +22,7 @@ if ($result = $conn->query($sql)) {
         $users[] = $data;
     }
 }
-
+echo "<h1>Datenbank LB3 Modul 300</h1>";
 foreach ($users as $user) {
     echo "<br>";
     echo "<b>ID:</b> <a>$user->id</a>" . " " . "<b>Benutzername:</b> <a>$user->username</a>" . " " . "<b>Passwort:</b> <a>$user->password</a>";
