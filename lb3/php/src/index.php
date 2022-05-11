@@ -25,7 +25,7 @@ if ($result = $conn->query($sql)) {
 
 foreach ($users as $user) {
     echo "<br>";
-    echo $user->username . " " . $user->password;
+    echo "<b>ID:</b> <a>$user->id</a>" . " " . "<b>Benutzername:</b> <a>$user->username</a>" . " " . "<b>Passwort:</b> <a>$user->password</a>";
     echo "<br>";
 }
 ?>
