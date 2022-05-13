@@ -209,7 +209,7 @@ insert into `users` (username, password) values
 ## Dockerumgebung Starten/Herunterfahren
 
 ### Hochfahren
-Um die Umgebung zu starten muss man **im Ordner vom docker-compose.yml** den Befehl `docker-compose up -d` eintragen.
+Um die Umgebung zu starten muss man **im Ordner vom docker-compose.yml** den Befehl `sudo docker-compose up -d` eintragen.
 
 ### Container stoppen
 Um die Umgebung herunterzufahren kann man ins Terminal `docker stop "Container-ID"`  schreiben.
