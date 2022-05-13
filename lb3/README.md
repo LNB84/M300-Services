@@ -212,10 +212,10 @@ insert into `users` (username, password) values
 Um die Umgebung zu starten muss man **im Ordner vom docker-compose.yml** den Befehl `sudo docker-compose up -d` eintragen.
 
 ### Container stoppen
-Um die Umgebung herunterzufahren kann man ins Terminal `docker stop "Container-ID"`  schreiben.
+Um die Umgebung herunterzufahren kann man ins Terminal `sudo docker stop "Container-ID"`  schreiben.
 
 ### Container löschen
-Um die Container zu löschen kann man ins Terminal `docker rm "Container-ID"`" schreiben.
+Um die Container zu löschen kann man ins Terminal `sudo docker rm "Container-ID"`" schreiben.
 
 ---
 
